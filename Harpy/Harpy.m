@@ -155,7 +155,9 @@ NSString * const HarpyLanguageVietnamese            = @"vi";
 
 - (void)performVersionCheck {
     NSURL *storeURL = [self itunesURL];
-    NSURLRequest *request = [NSMutableURLRequest requestWithURL:storeURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30.0];
+    NSMutableString *url = [storeURL.absoluteString mutableCopy];
+    [url appendFormat:@"&timestamp=%ld", [NSDate timeIntervalSinceReferenceDate]];
+    NSURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30.0];
 
     [self printDebugMessage:[NSString stringWithFormat:@"storeURL: %@", storeURL]];
 
